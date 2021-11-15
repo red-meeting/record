@@ -1,0 +1,33 @@
+.index {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  align-items: center;
+  padding-top: 10vh;
+  h1 {
+    font-size: 25px;
+    margin: 5px 0;
+  }
+  div {
+    margin: 3px 0;
+  }
+  .title {
+    font-size: 18px;
+  }
+  .tip {
+    font-size: 13px;
+  }
+  .btn {
+    padding: 12px 27px;
+    background-color: #1890ff;
+    color: #fff;
+    border: 0;
+    border-radius: 5px;
+    font-size: 18px;
+    margin: 18px 0;
+  }
+  .tag {
+    position: absolute;
+    bottom: 3vh;
+  }
+}

@@ -1,0 +1,25 @@
+.generate {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 5vh;
+  .title {
+    letter-spacing: 1px;
+    font-size: 25px;
+    margin: 1vh 0;
+  }
+  .tip {
+    font-size: 18px;
+  }
+  .box {
+    border-radius: 5px;
+    border: 1px solid #000;
+    padding: 21px 12px;
+    margin: 5vh 0;
+    div {
+      width: 75vw;
+      height: 65vw;
+      background-color: #faeede;
+    }
+  }
+}
