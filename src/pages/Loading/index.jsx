@@ -6,11 +6,14 @@ import { nanoid } from "nanoid";
 let p = 0,
   width = 0,
   rotate = 0;
-export default function Loading() {
+export default function Loading({ audio }) {
   const navigate = useNavigate();
   const [_, update] = useState(null);
   const processBox = useRef(null);
   useEffect(() => {
+    audio.currentTime = 0;
+    audio.pause();
+    p = 0;
     width = processBox.current.clientWidth;
   }, []);
   useEffect(() => {
