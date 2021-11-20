@@ -17,7 +17,7 @@ export default function Loading() {
     setTimeout(() => {
       p++;
       if (p <= 100) {
-        if (p == 100) {
+        if (p === 100) {
           rotate = 30;
           setTimeout(() => {
             navigate("/index");
@@ -26,7 +26,7 @@ export default function Loading() {
         update(nanoid());
       }
     }, 30);
-  }, [_]);
+  }, [_]);// eslint-disable-next-line
   return (
     <div className="loading">
       <div></div>
@@ -40,15 +40,15 @@ export default function Loading() {
         />
         <div className="process" ref={processBox}>
           <span
-            style={{
-              position: "absolute",
-              left: "0",
-              height: "100%",
-              backgroundColor: "#8400ff",
-              width: (width * p) / 100 + "px",
-              transition: "all 0.1s",
-            }}
-          ></span>
+    style={{
+        position: "absolute",
+        left: "0",
+        height: "100%",
+        backgroundColor: "#8400ff",
+        width: (width * p) / 100 + "px",
+        transition: "all 0.1s",
+    }}
+    />
         </div>
         <div>{p}%</div>
         <div className="load">

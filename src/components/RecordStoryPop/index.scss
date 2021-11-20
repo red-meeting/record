@@ -1,0 +1,38 @@
+.StoryPop{
+  z-index: 90;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .body{
+    position: absolute;
+    width: 350px;
+    height: 527.51px;
+    left: 13px;
+    top: 14.5vh;
+    background: url("../../assets/images/record/storyBack.png");
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    .shut{
+      position: absolute;
+      width: 31px;
+      height: 31px;
+      right: 15px;
+      top: 2.5vh;
+      background: url("../../assets/images/record/shut.png");
+      background-size: cover;
+    }
+    .content{
+      text-indent:2em;
+      line-height: 30px;
+      margin-top: 12vh;
+      width: 323px;
+      height: 422px;
+      font-size: 17px;
+      color: #CB4B44;
+    }
+  }
+}
