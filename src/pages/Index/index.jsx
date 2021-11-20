@@ -27,9 +27,7 @@ export default function Index({ audio, setIsHide }) {
           navigate("/record", { replace: true });
           setIsHide(true);
         }}
-      >
-        一起聆听百年歌声
-      </button>
+      />
     </div>
   );
 }

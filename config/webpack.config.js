@@ -131,7 +131,7 @@ module.exports = function (webpackEnv) {
             }),
             require("postcss-px-to-viewport")({
               unitToConvert: "px",
-              viewportWidth: 1334,
+              viewportWidth: 375,
               unitPrecision: 5,
               propList: ["*"],
               viewportUnit: "vw",

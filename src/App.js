@@ -16,8 +16,9 @@ audio.loop = true;
 export default function App() {
   const [isHide, setIsHide] = useState(true);
   useEffect(() => {
+    anime.remove(".music");
     anime({
-      targets: [".music"],
+      targets: ".music",
       rotate: 360,
       duration: 8000,
       loop: true,
