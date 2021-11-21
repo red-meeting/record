@@ -1,6 +1,17 @@
 import "./index.scss";
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState,useContext } from "react";
 import RecordStoryPop from "../../components/RecordStoryPop";
+import {AudioContext} from "../../App";
+ import mp1 from "../../assets/music/music1.mp3";
+ import mp2 from "../../assets/music/music2.mp3";
+ import mp3 from "../../assets/music/music3.mp3";
+ import mp4 from "../../assets/music/music4.mp3";
+ import mp5 from "../../assets/music/music5.mp3";
+ import mp6 from "../../assets/music/music6.mp3";
+ import mp7 from "../../assets/music/music7.mp3";
+ import mp8 from "../../assets/music/music8.mp3";
+ import mp9 from "../../assets/music/music9.mp3";
+ import mp10 from "../../assets/music/music10.mp3";
 const recordData=[
     {slogan:'开天辟地大事件', year:'1921',text:'1921年，中国共产党成立',song:"《百年红船》",singer:'盛世安/一衫衿',captions:['安徽合肥有一条路叫“延乔路”，而延乔路的尽头叫“繁华大道”','“愿中国青年都摆脱冷气，只是向上走，不必听自暴自弃者流的话”','“我们课本上短短的考点，是他们拼尽全力只为了光明未来的一生”']},
     {slogan:'浴血奋战', year:'1937',text:'1937年，全民族抗战爆发',song:"《大刀进行曲》",singer:'群星',captions:['纪念逝去的二十九路军将士及后来保家卫国的亿万中国军民','大刀向鬼子们的头上砍去，二十九军的弟兄们，抗战的一天来到了！','中国刀厚重，刀刃宽。日本刀窄薄']},
@@ -13,6 +24,7 @@ const recordData=[
     {slogan:'人民至上，生命至上', year:'2020',text:'2020年，取得抗击新冠肺炎疫情斗争重大战略成果',song:"《坚信爱会赢》",singer:'群星',captions:['这次疫情更能体现出我们中华民族的凝聚力','中国加油！ 相信自己！相信祖国！相信未来！','消灭疫情为前线战士们带上皇冠 那一天将是十四亿中国人的狂欢']},
     {slogan:'实现第一个百年奋斗目标', year:'2021',text:'2021年7月1日，习总书记宣布我国全面建成了小康社会',song:"《我爱你中国》",singer:'汪峰',captions:['我是十四亿护旗手','达则兼济天下，穷则独善其身','“当年飞机不够，您说飞两遍，如今山河无恙 国富兵强。”']},
 ]
+const audioPlayList=[mp1,mp2,mp3,mp4,mp5,mp6,mp7,mp8,mp9,mp10]
 export default function Record() {
     const [storyState,setStoryState]=useState(false);
     const [showCover,setShowCover]=useState(true);
@@ -20,7 +32,7 @@ export default function Record() {
     const [first,setFirst]=useState(true);
     const [recordIndex,setRecordIndex]= useState(0);
     const [playerState,setPlayerState]= useState(false);
-    const [timer,setTimer]=useState();
+    const [timer,setTimer]=useState({});
     const [player,setPlayer]=useState({})
     const title = useRef();
     const textNode = useRef();
@@ -29,10 +41,35 @@ export default function Record() {
     const captionNode2 = useRef();
     const captionNode3 = useRef();
     const recordPicNode = useRef();
+    const backAudio = useContext(AudioContext);
+    const audioPlay=()=>{
+        const audio = new Audio(audioPlayList[0]);
+        audio.onended=function (){
+            setPlayerState(false);
+        }
+        setPlayer(audio)
+        audio.play()
+            .catch((e) => {
+            console.log(e)
+            });
+            // audio.currentTime = 0;
+            // audio.pause();
+            // console.log(audio.currentTime)
+            //  audioTimer = setInterval(() => {
+            //     audio
+            //         .play()
+            //         .then((e) => {
+            //             clearInterval(audioTimer);
+            //         })
+            //         .catch((e) => {});
+            // });
+    }
     const handleStartPop=(state)=>{
         setShowCover(state);
         setShowPop(state);
+        backAudio.pause();
         setPlayerState(true)
+        audioPlay()
         captionsMoveList().catch((err)=>{
             console.log(err)
         });
@@ -90,14 +127,13 @@ export default function Record() {
             })();
         })
     }
-    let myAudioElement = new Audio(`../../assets/music/music${recordIndex}.mp3`);
     const nextRecord=()=>{
         if(recordIndex<9){
             initCaptionsList();
             setRecordIndex(i=>i+1)
         }
     }
-    const handleRecord=()=>{
+    const handleRecord=  ()=>{
         if(playerState){
             player.pause();
             recordPicNode.current.style.animationPlayState='paused'
@@ -108,27 +144,23 @@ export default function Record() {
             setPlayerState(true);
         }
     }
-    const lastRecord=()=>{
+    const lastRecord=  ()=>{
         if(recordIndex>0) {
             initCaptionsList();
-            setRecordIndex(i=>i-1);
+             setRecordIndex(i=>i-1);
         }
     }
     const {captions,slogan,text,song,singer,year}=recordData[recordIndex]
     useEffect(()=>{
-        let  audio = new Audio(`../../assets/music/music${recordIndex+1}.mp3`);
-        setPlayer(audio);
         clearTimeout(timer);
         if(!first){
+            player.src=audioPlayList[recordIndex]
+            player.play();
             captionsMoveList().catch((err)=>{
                 console.log(err)
             });
             title.current.innerText='';
             textNode.current.innerText='';
-            myAudioElement.addEventListener("canplaythrough", event => {
-                /* 音频可以播放；如果权限允许则播放 */
-                myAudioElement.play();
-            });
             const startSlogan= fontOut(slogan,title.current);
             startSlogan.then(()=>{
                 fontOut(text,textNode.current).catch((err)=>{
@@ -164,7 +196,7 @@ export default function Record() {
           </div>:''}
           <div className={'record'}> <div className={'recordPic'} ref={recordPicNode}/></div>
           <div className={'recordStoryBtn'} onClick={()=>{handleStoryPop(true)}}/>
-          <div className={'myRecord'} onClick={()=>{console.log('冲')}}/>
+          {recordIndex===9? <div className={'myRecord'} onClick={()=>{console.log('冲')}}/>:''}
           <div className={'player'}>
               {recordIndex===0?<div onClick={lastRecord} className={'backBanned'}/>:<div onClick={lastRecord}/>}
               {playerState?<div onClick={handleRecord} className={'playing'}/>:<div onClick={handleRecord}/>}
