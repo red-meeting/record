@@ -2,32 +2,18 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
+  background: url(../../assets/indexback.png) center no-repeat;
   align-items: center;
+  background-size: 100% 100%;
   padding-top: 10vh;
-  h1 {
-    font-size: 25px;
-    margin: 5px 0;
-  }
-  div {
-    margin: 3px 0;
-  }
-  .title {
-    font-size: 18px;
-  }
-  .tip {
-    font-size: 13px;
-  }
   .btn {
-    padding: 12px 27px;
     background-color: #1890ff;
     color: #fff;
     border: 0;
-    border-radius: 5px;
-    font-size: 18px;
-    margin: 18px 0;
-  }
-  .tag {
-    position: absolute;
-    bottom: 3vh;
+    transform: translateY(70vh);
+    background: url(../../assets/btn.png) center no-repeat;
+    background-size: 100% 100%;
+    height: 59.67px;
+    width: 254px;
   }
 }
