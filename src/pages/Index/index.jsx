@@ -1,6 +1,5 @@
 import "./index.scss";
 import React, { useEffect } from "react";
-import chanpian from "../../assets/changpian.png";
 import { useNavigate } from "react-router";
 export default function Index({ audio, setIsHide }) {
   const navigate = useNavigate();

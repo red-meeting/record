@@ -113,9 +113,49 @@ const data = [
 
 export default function Generate() {
   const line = useRef(null);
+  const scroller = useRef(null);
   const box = useRef(null);
+  const [isErr, setIsErr] = useState(false);
+  const [value, setValue] = useState("");
+  const [year, _setYear] = useState("");
+  const navigate = useNavigate();
+  const setYear = (val) => {
+    if (val.length <= 4) {
+      if (val > 2021 || val < 0) {
+        setIsErr(true);
+      } else {
+        setIsErr(false);
+      }
+      _setYear(val);
+    }
+  };
   useEffect(() => {
-    line.current.style.height = box.current.scrollHeight + "px";
+    let sumHeight = box.current.scrollHeight;
+    let vHeight = box.current.clientHeight;
+    line.current.style.height = sumHeight + "px";
+    let btn = scroller.current.querySelector(".scrollbtn");
+    btn.ontouchstart = (e) => {
+      let touch = e.targetTouches[0];
+      let clientY = touch.clientY;
+      document.ontouchmove = (_e) => {
+        let _touch = _e.targetTouches[0];
+        if (_touch.clientY - clientY >= vHeight) {
+          box.current.scrollTop = sumHeight;
+          btn.style.top = vHeight;
+          return;
+        } else if (_touch.clientY - clientY <= 0) {
+          box.current.scrollTop = 0;
+          btn.style.top = 0;
+          return;
+        }
+        box.current.scrollTop =
+          ((_touch.clientY - clientY) * sumHeight) / vHeight;
+        btn.style.top = _touch.clientY - clientY + "px";
+      };
+    };
+    btn.ontouchend = () => {
+      document.ontouchmove = null;
+    };
   }, []);
   return (
     <div className="generate">
@@ -129,7 +169,7 @@ export default function Generate() {
           <div className="line" ref={line}></div>
           {data.map((item, index) => {
             return (
-              <div className="article">
+              <div className="article" key={nanoid()}>
                 <div
                   key={index}
                   style={{
@@ -173,6 +213,47 @@ export default function Generate() {
             );
           })}
         </div>
+        <div className="scroller" ref={scroller}>
+          <button className="scrollbtn"></button>
+        </div>
+      </div>
+      <div className="flex-center">
+        <input
+          type="number"
+          placeholder="选择你的出生年份"
+          className="birth_year"
+          value={year}
+          onChange={(e) => setYear(e.target.value)}
+        />
+        <span
+          style={{
+            fontSize: "small",
+            color: "red",
+            visibility: isErr ? "visible" : "hidden",
+          }}
+        >
+          请输入正确出生年份
+        </span>
+        <input
+          placeholder="点击输入你对建档百年的赞词（15字)"
+          className="eulogy"
+          value={value}
+          onChange={(e) => {
+            if (e.target.value.length <= 15) {
+              setValue(e.target.value);
+            }
+          }}
+        />
+      </div>
+      <div>
+        <button
+          className="btn"
+          onClick={() => {
+            navigate("/over");
+          }}
+        >
+          生成我的风格唱片
+        </button>
       </div>
     </div>
   );

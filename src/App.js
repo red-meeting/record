@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.scss";
 import { Route, Routes } from "react-router";
 import Generate from "./pages/Generate";
@@ -8,13 +8,23 @@ import Over from "./pages/Over";
 import Record from "./pages/Record";
 import music from "./assets/music.png";
 import mp3 from "./assets/music/default.mp3";
-
+import anime from "animejs";
 const audio = new Audio(mp3);
 audio.volume = 0.2;
 audio.loop = true;
 
 export default function App() {
   const [isHide, setIsHide] = useState(true);
+  useEffect(() => {
+    anime.remove(".music");
+    anime({
+      targets: ".music",
+      rotate: 360,
+      duration: 8000,
+      loop: true,
+      easing: "linear",
+    });
+  });
   return (
     <div className="app">
       <div
@@ -32,8 +42,8 @@ export default function App() {
       >
         <img src={music} />
       </div>
-      <Routes >
-        <Route  path="/" element={<Loading />} />
+      <Routes>
+        <Route path="/" element={<Loading audio={audio} />} />
         <Route
           path="/index"
           element={<Index audio={audio} setIsHide={setIsHide} />}

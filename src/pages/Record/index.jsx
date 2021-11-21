@@ -1,6 +1,5 @@
 import "./index.scss";
 import React, {useEffect, useRef, useState} from "react";
-import 'swiper/modules/navigation/navigation.scss';
 import RecordStoryPop from "../../components/RecordStoryPop";
 const recordData=[
     {slogan:'开天辟地大事件', year:'1921',text:'1921年，中国共产党成立',song:"《百年红船》",singer:'盛世安/一衫衿',captions:['安徽合肥有一条路叫“延乔路”，而延乔路的尽头叫“繁华大道”','“愿中国青年都摆脱冷气，只是向上走，不必听自暴自弃者流的话”','“我们课本上短短的考点，是他们拼尽全力只为了光明未来的一生”']},

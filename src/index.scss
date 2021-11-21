@@ -3,8 +3,14 @@
   margin: 0;
   box-sizing: border-box;
 }
-@font-face {
-  font-family: HeiYanTi;
-  src: url("./assets/font/ShangShouHeiYanTi-2.ttf");
-}
 
+.flex-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+@font-face{
+  font-family:HeiYanTi;
+  src:url('./assets/font/ShangShouHeiYanTi-2.ttf');
+}
