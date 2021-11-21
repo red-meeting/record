@@ -1,7 +1,5 @@
 import "./index.scss";
 import React, {useEffect, useRef, useState} from "react";
-import { Swiper, SwiperSlide } from 'swiper/react/swiper-react';
-import {Navigation} from "swiper";
 import 'swiper/modules/navigation/navigation.scss';
 import RecordStoryPop from "../../components/RecordStoryPop";
 const recordData=[
@@ -22,8 +20,9 @@ export default function Record() {
     const [showPop,setShowPop]=useState(true);
     const [first,setFirst]=useState(true);
     const [recordIndex,setRecordIndex]= useState(0);
-    const [playerState,setPlayerState]= useState(true);
+    const [playerState,setPlayerState]= useState(false);
     const [timer,setTimer]=useState();
+    const [player,setPlayer]=useState({})
     const title = useRef();
     const textNode = useRef();
     const yearNode = useRef();
@@ -34,6 +33,7 @@ export default function Record() {
     const handleStartPop=(state)=>{
         setShowCover(state);
         setShowPop(state);
+        setPlayerState(true)
         captionsMoveList().catch((err)=>{
             console.log(err)
         });
@@ -45,14 +45,23 @@ export default function Record() {
         })
     }
     const captionsMove =(node)=>{
-        node.style.left='-500px';
+        //控制弹幕移动使得每一次切换都会重置动画
+        if(node.style.animationName==='capMove'){
+            node.style.animation='capMove1 20s linear';
+        }else{
+            node.style.animation='capMove 20s linear';
+        }
         return new Promise((resolve)=>{
-             setTimeout(()=>{ resolve()},18000)
+             let listen= node.addEventListener('animationend',()=>{
+                 resolve();
+             })
         })
     }
     const initCaptionsList=()=>{
-        console.log(123)
-        captionNode1.current.style.left='200px';
+        //初始化弹幕动画
+        captionNode1.current.style.animation=''
+        captionNode2.current.style.animation=''
+        captionNode3.current.style.animation=''
     }
     const captionsMoveList = async ()=>{
         await captionsMove(captionNode1.current);
@@ -63,6 +72,7 @@ export default function Record() {
         setShowCover(state);
         setStoryState(state)
     }
+    //神级代码，建议反复观看，利用异步封装，迭代，闭包打造可复用工厂函数
     const fontOut=(arr,node)=>{
         let iter = arr[Symbol.iterator]();
         return new Promise((resolve)=>{
@@ -81,17 +91,20 @@ export default function Record() {
             })();
         })
     }
+    let myAudioElement = new Audio(`../../assets/music/music${recordIndex}.mp3`);
     const nextRecord=()=>{
         if(recordIndex<9){
             initCaptionsList();
             setRecordIndex(i=>i+1)
         }
     }
-    const stopRecord=()=>{
+    const handleRecord=()=>{
         if(playerState){
+            player.pause();
             recordPicNode.current.style.animationPlayState='paused'
             setPlayerState(false);
         }else {
+            player.play();
             recordPicNode.current.style.animationPlayState='running'
             setPlayerState(true);
         }
@@ -104,6 +117,8 @@ export default function Record() {
     }
     const {captions,slogan,text,song,singer,year}=recordData[recordIndex]
     useEffect(()=>{
+        let  audio = new Audio(`../../assets/music/music${recordIndex+1}.mp3`);
+        setPlayer(audio);
         clearTimeout(timer);
         if(!first){
             captionsMoveList().catch((err)=>{
@@ -111,6 +126,10 @@ export default function Record() {
             });
             title.current.innerText='';
             textNode.current.innerText='';
+            myAudioElement.addEventListener("canplaythrough", event => {
+                /* 音频可以播放；如果权限允许则播放 */
+                myAudioElement.play();
+            });
             const startSlogan= fontOut(slogan,title.current);
             startSlogan.then(()=>{
                 fontOut(text,textNode.current).catch((err)=>{
@@ -119,10 +138,14 @@ export default function Record() {
             })
         }else setFirst(false);
     },[recordIndex])
+    // audio.play();
   return <div className='recordPage'>
       <div className={'light'}>
           {showCover?<div className={'cover'}/>:''}
           {showPop?<div className={'onPop'}>
+              <div className={'title'}>时代唱片机介绍</div>
+              <div className={'body'}>为庆祝中国共产党第十九届中央委员会第六次全体会议的成功召开并积极探索党的百年奋斗的重大成就和历史经验问题 ，回忆建党百年来的风风雨雨。</div>
+              <div className={'body'}>红岩网校工作站特此推出全新追忆产品“时代唱片机”带你重温百年风雨历程，助力伟大中国梦！</div>
               <div className={'startBtn'} onClick={()=>{handleStartPop(false)}}/>
           </div>:''}
           {storyState?<RecordStoryPop handleStoryPop={handleStoryPop} activeIndex={recordIndex}/>:''}
@@ -140,11 +163,12 @@ export default function Record() {
               </div>
               <div className={'year'} ref={yearNode}>{`${year}年`}</div>
           </div>:''}
-          <div className={'recordPic'} ref={recordPicNode}/>
+          <div className={'record'}> <div className={'recordPic'} ref={recordPicNode}/></div>
           <div className={'recordStoryBtn'} onClick={()=>{handleStoryPop(true)}}/>
+          <div className={'myRecord'} onClick={()=>{console.log('冲')}}/>
           <div className={'player'}>
               {recordIndex===0?<div onClick={lastRecord} className={'backBanned'}/>:<div onClick={lastRecord}/>}
-              <div onClick={stopRecord}/>
+              {playerState?<div onClick={handleRecord} className={'playing'}/>:<div onClick={handleRecord}/>}
               {recordIndex===9?<div onClick={nextRecord} className={'forwardBanned'}/>:<div onClick={nextRecord}/>}
           </div>
       </div>

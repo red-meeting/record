@@ -15,6 +15,7 @@ const recordStory=[
 
 export default function RecordStoryPop(props) {
     const {handleStoryPop,activeIndex}=props;
+    console.log(456)
     return <div className='StoryPop'>
         <div className={'body'}>
             <div className={'shut'} onClick={()=>{handleStoryPop(false)}}/>

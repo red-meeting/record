@@ -8,7 +8,6 @@ import Over from "./pages/Over";
 import Record from "./pages/Record";
 import music from "./assets/music.png";
 import mp3 from "./assets/music/default.mp3";
-import 'swiper/swiper.scss';
 
 const audio = new Audio(mp3);
 audio.volume = 0.2;
@@ -34,7 +33,7 @@ export default function App() {
         <img src={music} />
       </div>
       <Routes >
-        <Route  path="/" element={<Record />} />
+        <Route  path="/" element={<Loading />} />
         <Route
           path="/index"
           element={<Index audio={audio} setIsHide={setIsHide} />}
