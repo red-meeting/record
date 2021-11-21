@@ -4,22 +4,9 @@
   height: 100vh;
   background: url(../../assets/indexback.png) center no-repeat;
   align-items: center;
+  background-size: 100% 100%;
   padding-top: 10vh;
-  h1 {
-    font-size: 25px;
-    margin: 5px 0;
-  }
-  div {
-    margin: 3px 0;
-  }
-  .title {
-    font-size: 18px;
-  }
-  .tip {
-    font-size: 13px;
-  }
   .btn {
-    padding: 12px 27px;
     background-color: #1890ff;
     color: #fff;
     border: 0;
