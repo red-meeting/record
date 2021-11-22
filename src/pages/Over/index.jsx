@@ -80,7 +80,7 @@ export default function Over({ congratulations, year }) {
   } else {
     article = "时代史诗";
   }
-
+  console.log(year, congratulations);
   return (
     <div
       style={{
@@ -96,7 +96,7 @@ export default function Over({ congratulations, year }) {
         ref={screen}
       >
         <div className="title">我的唱片风格</div>
-        <div className="title2">{{ article }}</div>
+        <div className="title2">{article}</div>
         <div className="record">
           <img src={back} alt="" />
         </div>

@@ -55,7 +55,7 @@ export default function App() {
           path="/generate"
           element={
             <Generate
-              setYear={setYears}
+              setYears={setYears}
               setCongratulations={setCongratulations}
             />
           }
