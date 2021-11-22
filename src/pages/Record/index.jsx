@@ -2,6 +2,7 @@ import "./index.scss";
 import React, {useEffect, useRef, useState,useContext } from "react";
 import RecordStoryPop from "../../components/RecordStoryPop";
 import {AudioContext} from "../../App";
+import { useNavigate } from "react-router";
  import mp1 from "../../assets/music/music1.mp3";
  import mp2 from "../../assets/music/music2.mp3";
  import mp3 from "../../assets/music/music3.mp3";
@@ -12,6 +13,16 @@ import {AudioContext} from "../../App";
  import mp8 from "../../assets/music/music8.mp3";
  import mp9 from "../../assets/music/music9.mp3";
  import mp10 from "../../assets/music/music10.mp3";
+ import recordPic1 from '../../assets/images/record/recordPic1.png'
+ import recordPic2 from '../../assets/images/record/recordPic2.png'
+ import recordPic3 from '../../assets/images/record/recordPic3.png'
+ import recordPic4 from '../../assets/images/record/recordPic4.png'
+ import recordPic5 from '../../assets/images/record/recordPic5.png'
+ import recordPic6 from '../../assets/images/record/recordPic6.png'
+ import recordPic7 from '../../assets/images/record/recordPic7.png'
+ import recordPic8 from '../../assets/images/record/recordPic8.png'
+ import recordPic9 from '../../assets/images/record/recordPic9.png'
+ import recordPic10 from '../../assets/images/record/recordPic10.png'
 const recordData=[
     {slogan:'开天辟地大事件', year:'1921',text:'1921年，中国共产党成立',song:"《百年红船》",singer:'盛世安/一衫衿',captions:['安徽合肥有一条路叫“延乔路”，而延乔路的尽头叫“繁华大道”','“愿中国青年都摆脱冷气，只是向上走，不必听自暴自弃者流的话”','“我们课本上短短的考点，是他们拼尽全力只为了光明未来的一生”']},
     {slogan:'浴血奋战', year:'1937',text:'1937年，全民族抗战爆发',song:"《大刀进行曲》",singer:'群星',captions:['纪念逝去的二十九路军将士及后来保家卫国的亿万中国军民','大刀向鬼子们的头上砍去，二十九军的弟兄们，抗战的一天来到了！','中国刀厚重，刀刃宽。日本刀窄薄']},
@@ -25,6 +36,7 @@ const recordData=[
     {slogan:'实现第一个百年奋斗目标', year:'2021',text:'2021年7月1日，习总书记宣布我国全面建成了小康社会',song:"《我爱你中国》",singer:'汪峰',captions:['我是十四亿护旗手','达则兼济天下，穷则独善其身','“当年飞机不够，您说飞两遍，如今山河无恙 国富兵强。”']},
 ]
 const audioPlayList=[mp1,mp2,mp3,mp4,mp5,mp6,mp7,mp8,mp9,mp10]
+const recordPicList=[recordPic1,recordPic2,recordPic3,recordPic4,recordPic5,recordPic6,recordPic7,recordPic8,recordPic9,recordPic10];
 export default function Record() {
     const [storyState,setStoryState]=useState(false);
     const [showCover,setShowCover]=useState(true);
@@ -42,6 +54,7 @@ export default function Record() {
     const captionNode3 = useRef();
     const recordPicNode = useRef();
     const backAudio = useContext(AudioContext);
+    const navigate = useNavigate();
     const audioPlay=()=>{
         const audio = new Audio(audioPlayList[0]);
         audio.onended=function (){
@@ -144,13 +157,16 @@ export default function Record() {
             setPlayerState(true);
         }
     }
-    const lastRecord=  ()=>{
+    const lastRecord= ()=>{
         if(recordIndex>0) {
             initCaptionsList();
              setRecordIndex(i=>i-1);
         }
     }
-    const {captions,slogan,text,song,singer,year}=recordData[recordIndex]
+    const nextRouter=()=>{
+        player.pause();
+        navigate("/generate", { replace: true });
+    }
     useEffect(()=>{
         clearTimeout(timer);
         if(!first){
@@ -169,7 +185,7 @@ export default function Record() {
             })
         }else setFirst(false);
     },[recordIndex])
-    // audio.play();
+    const {captions,slogan,text,song,singer,year}=recordData[recordIndex]
   return <div className='recordPage'>
       <div className={'light'}>
           {showCover?<div className={'cover'}/>:''}
@@ -194,9 +210,9 @@ export default function Record() {
               </div>
               <div className={'year'} ref={yearNode}>{`${year}年`}</div>
           </div>:''}
-          <div className={'record'}> <div className={'recordPic'} ref={recordPicNode}/></div>
+          <div className={'record'}> <img className={'recordPic'} ref={recordPicNode} src={recordPicList[recordIndex]} alt={'图片出错了'}/></div>
           <div className={'recordStoryBtn'} onClick={()=>{handleStoryPop(true)}}/>
-          {recordIndex===9? <div className={'myRecord'} onClick={()=>{console.log('冲')}}/>:''}
+          {recordIndex===9? <div className={'myRecord'} onClick={()=>{nextRouter()}}/>:''}
           <div className={'player'}>
               {recordIndex===0?<div onClick={lastRecord} className={'backBanned'}/>:<div onClick={lastRecord}/>}
               {playerState?<div onClick={handleRecord} className={'playing'}/>:<div onClick={handleRecord}/>}
