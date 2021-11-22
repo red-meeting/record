@@ -7,16 +7,17 @@
   align-items: center;
   user-select: none;
   position: relative;
+  justify-content: space-between;
   .title {
     text-align: center;
-    transform: translateY(15vh);
+    transform: translateY(16vh);
     font-size: 3vh;
     font-family: HeiYanTi;
     color: #de4d18;
   }
   .title2 {
     text-align: center;
-    transform: translate(2.1vh, 21.5vh);
+    transform: translate(2.1vh, 8.1vh);
     color: #de4d18;
     font-family: HeiYanTi;
     font-size: 48px;
@@ -25,7 +26,7 @@
   .record {
     width: 50vw;
     height: 50vw;
-    transform: translateY(27vh);
+    transform: translateY(1.2vh);
     background: url(../../assets/images/record/over_record.png) center no-repeat;
     background-size: 100% 100%;
     display: flex;
@@ -38,8 +39,8 @@
   .year {
     color: #de4d18;
     font-family: HeiYanTi;
-    transform: translateY(36vh);
-    font-size: 27px;
+    transform: translateY(-7vh);
+    font-size: 7vw;
     text-align: center;
   }
   .article {
@@ -49,7 +50,7 @@
     color: #ffa205;
     font-size: 21px;
     font-family: HeiYanTi;
-    transform: translateY(38vh);
+    transform: translateY(-18vh);
     width: 79vw;
     div:nth-child(1) {
       height: 7vw;
@@ -63,7 +64,8 @@
     color: #f4bfa9;
     font-size: 23px;
     font-family: HeiYanTi;
-    transform: translateY(41.5vh);
+    position: absolute;
+    bottom: 12vh;
   }
   .code {
     display: flex;
@@ -71,7 +73,7 @@
     align-items: center;
     flex-direction: column;
     position: absolute;
-    bottom: 6vh;
+    bottom: 5vh;
     img {
       width: 50px;
       height: 50px;

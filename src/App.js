@@ -1,4 +1,4 @@
-import React, { useEffect, useState,createContext  } from "react";
+import React, { useEffect, useState, createContext } from "react";
 import "./App.scss";
 import { Route, Routes } from "react-router";
 import Generate from "./pages/Generate";
@@ -8,25 +8,14 @@ import Over from "./pages/Over";
 import Record from "./pages/Record";
 import music from "./assets/music.png";
 import mp3 from "./assets/music/default.mp3";
-import anime from "animejs";
 const audio = new Audio(mp3);
 audio.volume = 0.2;
 audio.loop = true;
-const AudioContext = createContext(audio)
+const AudioContext = createContext(audio);
 export default function App() {
   const [isHide, setIsHide] = useState(true);
   const [congratulations, setCongratulations] = useState("");
   const [year, setYears] = useState(0);
-  useEffect(() => {
-    anime.remove(".music");
-    anime({
-      targets: ".music",
-      rotate: 360,
-      duration: 8000,
-      loop: true,
-      easing: "linear",
-    });
-  });
   return (
     <div className="app">
       <div
@@ -44,8 +33,7 @@ export default function App() {
       >
         <img src={music} />
       </div>
-      <AudioContext.Provider value={audio}>
-      </AudioContext.Provider>
+      <AudioContext.Provider value={audio}></AudioContext.Provider>
       <Routes>
         <Route path="/" element={<Loading audio={audio} />} />
         <Route
@@ -70,4 +58,4 @@ export default function App() {
     </div>
   );
 }
-export {AudioContext};
+export { AudioContext };

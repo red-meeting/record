@@ -40,7 +40,16 @@
       top: -35px;
       margin: 0;
       transition: none;
-      transform: rotate(0);
+      animation: penMove linear infinite 1s;
     }
+  }
+}
+
+@keyframes penMove {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(-25deg);
   }
 }

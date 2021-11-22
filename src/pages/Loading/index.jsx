@@ -3,7 +3,6 @@ import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import record from "../../assets/images/record/index_recod_back.png";
 import pen from "../../assets/images/record/pen.png";
-import anime from "animejs";
 import { nanoid } from "nanoid";
 let p = 0,
   width = 0,
@@ -16,13 +15,6 @@ export default function Loading() {
     width = processBox.current.clientWidth;
   }, []);
   useEffect(() => {
-    anime({
-      targets: ".pen",
-      rotate: -30,
-      duration: 1000,
-      loop: true,
-      easing: "linear",
-    });
     setTimeout(() => {
       p++;
       if (p <= 100) {
@@ -52,7 +44,7 @@ export default function Loading() {
             src={pen}
             className="pen"
             style={{
-              transform: `translate(${(width * p) / 100}px)`,
+              left: `${(width * p) / 100}px`,
             }}
           />
           <span

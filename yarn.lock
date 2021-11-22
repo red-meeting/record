@@ -2347,11 +2347,6 @@ amdefine@>=0.0.4:
   resolved "https://registry.npm.taobao.org/amdefine/download/amdefine-1.0.1.tgz#4a5282ac164729e93619bcfd3ad151f817ce91f5"
   integrity sha1-SlKCrBZHKek2Gbz9OtFR+BfOkfU=
 
-animejs@^3.2.1:
-  version "3.2.1"
-  resolved "https://registry.nlark.com/animejs/download/animejs-3.2.1.tgz#de9fe2e792f44a777a7fdf6ae160e26604b0cdda"
-  integrity sha1-3p/i55L0Snd6f99q4WDiZgSwzdo=
-
 ansi-colors@^3.0.0:
   version "3.2.4"
   resolved "https://registry.nlark.com/ansi-colors/download/ansi-colors-3.2.4.tgz#e3a3da4bfbae6c86a9c285625de124a234026fbf"
