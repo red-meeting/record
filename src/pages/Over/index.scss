@@ -10,22 +10,22 @@
   .title {
     text-align: center;
     transform: translateY(15vh);
-    font-size: 27px;
+    font-size: 3vh;
     font-family: HeiYanTi;
     color: #de4d18;
   }
   .title2 {
     text-align: center;
-    font-size: 56px;
-    transform: translate(3vw, 21vh);
-    letter-spacing: 24px;
+    transform: translate(2.1vh, 21.5vh);
     color: #de4d18;
     font-family: HeiYanTi;
+    font-size: 48px;
+    letter-spacing: 32px;
   }
   .record {
     width: 50vw;
     height: 50vw;
-    transform: translateY(25vh);
+    transform: translateY(27vh);
     background: url(../../assets/images/record/over_record.png) center no-repeat;
     background-size: 100% 100%;
     display: flex;
@@ -38,7 +38,7 @@
   .year {
     color: #de4d18;
     font-family: HeiYanTi;
-    transform: translateY(35vh);
+    transform: translateY(36vh);
     font-size: 27px;
     text-align: center;
   }

@@ -34,7 +34,7 @@
     position: relative;
     border-radius: 5px;
     position: relative;
-    top: 8%;
+    top: 6%;
   }
 
   .btn {
@@ -49,7 +49,7 @@
 
   .birth_year {
     text-align: center;
-    padding: 18px 0;
+    padding: 12px 0;
     background: url(../../assets/images/record/generate_btn_back.png) center
       no-repeat;
     background-size: 100% 100%;
@@ -61,7 +61,7 @@
   }
 
   .eulogy {
-    padding: 18px 2px;
+    padding: 12px 0;
     width: 270px;
     margin-bottom: 3vh;
     background: url(../../assets/images/record/generate_btn_back2.png) center
@@ -140,6 +140,9 @@
   height: 67px;
   outline: none;
   border: 0;
-  transform: translateY(7vh);
   background-color: transparent !important;
+  position: absolute;
+  bottom: 1vh;
+  left: 50%;
+  margin-left: -135px !important;
 }
