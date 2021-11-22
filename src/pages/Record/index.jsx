@@ -53,6 +53,7 @@ export default function Record() {
     const captionNode2 = useRef();
     const captionNode3 = useRef();
     const recordPicNode = useRef();
+    const sin = useRef()
     const backAudio = useContext(AudioContext);
     const navigate = useNavigate();
     const audioPlay=()=>{
@@ -165,7 +166,11 @@ export default function Record() {
     }
     const nextRouter=()=>{
         player.pause();
-        navigate("/generate", { replace: true });
+        title.current.style.opacity=0;
+        textNode.current.style.opacity=0;
+        yearNode.current.style.opacity=0;
+        sin.current.style.opacity=0;
+        setTimeout(()=>{ navigate("/generate", { replace: true });},1000)
     }
     useEffect(()=>{
         clearTimeout(timer);
@@ -204,7 +209,7 @@ export default function Record() {
                   </div>
               <div className={'slogan'} ref={title}/>
               <div className={'text'} ref={textNode}/>
-              <div className={'sin'}>
+              <div className={'sin'} ref={sin}>
                   <div className={'song'}>{song}</div>
                   <div className={'singer'}>{singer}</div>
               </div>
