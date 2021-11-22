@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,createContext  } from "react";
 import "./App.scss";
 import { Route, Routes } from "react-router";
 import Generate from "./pages/Generate";
@@ -12,7 +12,7 @@ import anime from "animejs";
 const audio = new Audio(mp3);
 audio.volume = 0.2;
 audio.loop = true;
-
+const AudioContext = createContext(audio)
 export default function App() {
   const [isHide, setIsHide] = useState(true);
   const [congratulations, setCongratulations] = useState("");
@@ -44,6 +44,8 @@ export default function App() {
       >
         <img src={music} />
       </div>
+      <AudioContext.Provider value={audio}>
+      </AudioContext.Provider>
       <Routes>
         <Route path="/" element={<Loading audio={audio} />} />
         <Route
@@ -68,3 +70,4 @@ export default function App() {
     </div>
   );
 }
+export {AudioContext};
