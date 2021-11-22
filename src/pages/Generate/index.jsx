@@ -1,6 +1,7 @@
 import "./index.scss";
-import React, { useEffect, useRef } from "react";
-
+import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { nanoid } from "nanoid";
 const data = [
   { title: "开天辟地", year: "1921年", event: "中国共产党成立" },
   {
@@ -111,7 +112,7 @@ const data = [
   },
 ];
 
-export default function Generate() {
+export default function Generate({ setCongratulations, setYears }) {
   const line = useRef(null);
   const scroller = useRef(null);
   const box = useRef(null);
@@ -133,15 +134,18 @@ export default function Generate() {
     let sumHeight = box.current.scrollHeight;
     let vHeight = box.current.clientHeight;
     line.current.style.height = sumHeight + "px";
+    scroller.current.style.height = vHeight + "px";
     let btn = scroller.current.querySelector(".scrollbtn");
+    let overHeight = btn.clientHeight;
     btn.ontouchstart = (e) => {
       let touch = e.targetTouches[0];
       let clientY = touch.clientY;
       document.ontouchmove = (_e) => {
         let _touch = _e.targetTouches[0];
-        if (_touch.clientY - clientY >= vHeight) {
-          box.current.scrollTop = sumHeight;
-          btn.style.top = vHeight;
+
+        if (_touch.clientY + overHeight - clientY >= vHeight) {
+          box.current.scrollTop = sumHeight - overHeight;
+          btn.style.top = vHeight - overHeight;
           return;
         } else if (_touch.clientY - clientY <= 0) {
           box.current.scrollTop = 0;
@@ -159,65 +163,70 @@ export default function Generate() {
   }, []);
   return (
     <div className="generate">
-      <h1 className="title">
-        <span style={{ color: "red" }}>1921-2021</span>
-      </h1>
-      <h1 className="title">建党百年,砥砺前行</h1>
-      <div className="tip">时代唱片机的新故事等你来谱写</div>
+      <div className="head">
+        <h1 className="title">1921-2021</h1>
+        <h1 className="title">建党百年,砥砺前行</h1>
+        <div className="tip">时代唱片机的新故事等你来谱写</div>
+      </div>
       <div className="box">
-        <div ref={box}>
-          <div className="line" ref={line}></div>
-          {data.map((item, index) => {
-            return (
-              <div className="article" key={nanoid()}>
-                <div
-                  key={index}
-                  style={{
-                    display: "flex",
-                    width: "38.888%",
-                    justifyContent: "flex-end",
-                    paddingRight: 3,
-                  }}
-                >
-                  {item.title}
-                </div>
-                <span
-                  style={{
-                    backgroundColor: "red",
-                    display: "inline-block",
-                    width: 5,
-                    height: 5,
-                    borderRadius: "50%",
-                    transform: "translate(1px,7px)",
-                  }}
-                ></span>
-                <div
-                  style={{
-                    display: "flex",
-                    width: "61.112%",
-                    justifyContent: "flex-end",
-                    paddingLeft: 3,
-                  }}
-                >
+        <div>
+          <div
+            style={{ overflow: "hidden", position: "relative", height: "35vh" }}
+            ref={box}
+          >
+            <div className="line" ref={line}></div>
+            {data.map((item, index) => {
+              return (
+                <div className="article" key={nanoid()}>
                   <div
+                    key={index}
                     style={{
-                      marginRight: 3,
-                      width: "32%",
+                      display: "flex",
+                      width: "38.888%",
+                      justifyContent: "flex-end",
+                      paddingRight: 3,
                     }}
                   >
-                    {item.year}
+                    {item.title}
                   </div>
-                  <div style={{ flex: 1 }}>{item.event}</div>
+                  <span
+                    style={{
+                      backgroundColor: "red",
+                      display: "inline-block",
+                      width: 5,
+                      height: 5,
+                      borderRadius: "50%",
+                      transform: "translate(1px,7px)",
+                    }}
+                  ></span>
+                  <div
+                    style={{
+                      display: "flex",
+                      width: "61.112%",
+                      justifyContent: "flex-end",
+                      paddingLeft: 3,
+                    }}
+                  >
+                    <div
+                      style={{
+                        marginRight: 3,
+                        width: "32%",
+                      }}
+                    >
+                      {item.year}
+                    </div>
+                    <div style={{ flex: 1 }}>{item.event}</div>
+                  </div>
                 </div>
-              </div>
-            );
-          })}
-        </div>
-        <div className="scroller" ref={scroller}>
-          <button className="scrollbtn"></button>
+              );
+            })}
+          </div>
+          <div className="scroller" ref={scroller}>
+            <button className="scrollbtn"></button>
+          </div>
         </div>
       </div>
-      <div className="flex-center">
+      <div className="flex-center btn-box">
         <input
           type="number"
           placeholder="选择你的出生年份"
@@ -247,13 +256,13 @@ export default function Generate() {
       </div>
       <div>
         <button
-          className="btn"
+          className="btn btn-generate"
           onClick={() => {
+            setCongratulations(value);
+            setYears(year);
             navigate("/over");
           }}
-        >
-          生成我的风格唱片
-        </button>
+        ></button>
       </div>
     </div>
   );

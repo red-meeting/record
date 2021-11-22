@@ -1,7 +1,9 @@
 import "./index.scss";
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import record from "../../assets/record.png";
+import record from "../../assets/images/record/index_recod_back.png";
+import pen from "../../assets/images/record/pen.png";
+import anime from "animejs";
 import { nanoid } from "nanoid";
 let p = 0,
   width = 0,
@@ -14,6 +16,13 @@ export default function Loading() {
     width = processBox.current.clientWidth;
   }, []);
   useEffect(() => {
+    anime({
+      targets: ".pen",
+      rotate: -30,
+      duration: 1000,
+      loop: true,
+      easing: "linear",
+    });
     setTimeout(() => {
       p++;
       if (p <= 100) {
@@ -26,7 +35,7 @@ export default function Loading() {
         update(nanoid());
       }
     }, 30);
-  }, [_]);// eslint-disable-next-line
+  }, [_]); // eslint-disable-next-line
   return (
     <div className="loading">
       <div></div>
@@ -39,23 +48,27 @@ export default function Loading() {
           }}
         />
         <div className="process" ref={processBox}>
+          <img
+            src={pen}
+            className="pen"
+            style={{
+              transform: `translate(${(width * p) / 100}px)`,
+            }}
+          />
           <span
-    style={{
-        position: "absolute",
-        left: "0",
-        height: "100%",
-        backgroundColor: "#8400ff",
-        width: (width * p) / 100 + "px",
-        transition: "all 0.1s",
-    }}
-    />
+            style={{
+              position: "absolute",
+              left: "0",
+              height: "100%",
+              backgroundColor: "#f6682b",
+              width: (width * p) / 100 + "px",
+              transition: "all 0.1s",
+            }}
+          />
         </div>
-        <div>{p}%</div>
-        <div className="load">
-          正在加载<span style={{ color: "#8400ff" }}>时代唱片机</span>
-        </div>
+        <div style={{ color: "#fff" }}>{p}%</div>
+        <div className="load">正在加载时代唱片</div>
       </div>
-      <div>©红岩网校工作站</div>
     </div>
   );
 }

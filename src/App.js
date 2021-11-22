@@ -15,6 +15,8 @@ audio.loop = true;
 
 export default function App() {
   const [isHide, setIsHide] = useState(true);
+  const [congratulations, setCongratulations] = useState("");
+  const [year, setYears] = useState(0);
   useEffect(() => {
     anime.remove(".music");
     anime({
@@ -49,8 +51,19 @@ export default function App() {
           element={<Index audio={audio} setIsHide={setIsHide} />}
         />
         <Route path="/record" element={<Record />} />
-        <Route path="/generate" element={<Generate />} />
-        <Route path="/over" element={<Over />} />
+        <Route
+          path="/generate"
+          element={
+            <Generate
+              setYear={setYears}
+              setCongratulations={setCongratulations}
+            />
+          }
+        />
+        <Route
+          path="/over"
+          element={<Over congratulations={congratulations} year={year} />}
+        />
       </Routes>
     </div>
   );
