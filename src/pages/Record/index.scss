@@ -41,7 +41,8 @@
                 font-size: 27px;
                 line-height: 27px;
                 color: #DA5529;
-
+                opacity: 1;
+                transition: 1s linear;
             }
             .body{
                 text-indent:2em;
@@ -73,6 +74,7 @@
         color: #D94B18;
         width: 198px;
         overflow: hidden;
+        transition: 1s linear;
         div{
             margin: auto;
             top: 0;
@@ -83,6 +85,8 @@
             height: 16px;
             font-size: 16px;
             line-height: 16px;
+            opacity: 1;
+            transition: 1s linear;
         }
     }
     @keyframes capMove {
@@ -112,11 +116,15 @@
         font-size: 22.5px;
         line-height: 22.49px;
         transform: rotate(-3.28deg);
+        opacity: 1;
+        transition: 1s linear;
     }
     .sin{
         position: absolute;
         left: 192px;
         top: 40.3vh;
+        opacity: 1;
+        transition: 1s linear;
         .song{
             width: 175px;
             height: 15px;
@@ -152,6 +160,8 @@
         line-height: 25px;
         color: #FF9102;
         animation: yearMove 2s ease-in-out forwards;
+        opacity: 1;
+        transition: 1s linear;
     }
     @keyframes yearMove {
         from{
@@ -174,6 +184,8 @@
         text-align: center;
         transform: rotate(-4.32deg);
         align-items: center;
+        opacity: 1;
+        transition: 1s linear;
     }
     .record{
         position: absolute;
