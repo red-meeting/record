@@ -19,7 +19,8 @@ function dataURItoBlob(dataURI) {
 
 export default function Over({ congratulations, year }) {
   const [isSave, setIsSave] = useState(false);
-  let url, article;
+  let url = useRef(null),
+    article;
   let screen = useRef(null);
   useEffect(() => {
     let timer;
@@ -28,9 +29,9 @@ export default function Over({ congratulations, year }) {
         setIsSave(true);
         setTimeout(() => {
           domtoimage.toPng(screen.current).then(function (dataUrl) {
-            if (dataUrl != "error") {
-              url = dataUrl;
-              let file = dataURItoBlob(url);
+            if (dataUrl !== "error") {
+              url.current = dataUrl;
+              let file = dataURItoBlob(url.current);
               const blobUrl = window.URL.createObjectURL(file);
               let a = document.createElement("a");
               a.href = blobUrl;
@@ -46,8 +47,8 @@ export default function Over({ congratulations, year }) {
                   try {
                     b64 = canvas.toDataURL("image/png");
                   } catch (err) {}
-                  url = b64;
-                  let file = dataURItoBlob(url);
+                  url.current = b64;
+                  let file = dataURItoBlob(url.current);
                   const blobUrl = window.URL.createObjectURL(file);
                   let a = document.createElement("a");
                   a.href = blobUrl;

@@ -7,13 +7,14 @@ import { nanoid } from "nanoid";
 let p = 0,
   width = 0,
   rotate = 0;
-export default function Loading() {
-  const navigate = useNavigate();
+export default function Loading({ setIsHide }) {
   const [_, update] = useState(null);
   const processBox = useRef(null);
   useEffect(() => {
     width = processBox.current.clientWidth;
-  }, []);
+    setIsHide(false);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  const navigate = useNavigate();
   useEffect(() => {
     setTimeout(() => {
       p++;
@@ -24,10 +25,10 @@ export default function Loading() {
             navigate("/index");
           }, 90);
         }
-        update(nanoid());
+        update(nanoid()); // eslint-disable-line react-hooks/exhaustive-deps
       }
     }, 30);
-  }, [_]); // eslint-disable-next-line
+  }, [_]); // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <div className="loading">
       <div></div>
@@ -41,6 +42,7 @@ export default function Loading() {
         />
         <div className="process" ref={processBox}>
           <img
+            alt="图片加载失败,请尝试刷新"
             src={pen}
             className="pen"
             style={{

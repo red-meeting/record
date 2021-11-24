@@ -1,4 +1,4 @@
-import React, { useEffect, useState, createContext } from "react";
+import React, { useState, createContext } from "react";
 import "./App.scss";
 import { Route, Routes } from "react-router";
 import Generate from "./pages/Generate";
@@ -31,15 +31,12 @@ export default function App() {
           }
         }}
       >
-        <img src={music} />
+        <img src={music} alt="图片加载失败" />
       </div>
       <AudioContext.Provider value={audio}></AudioContext.Provider>
       <Routes>
-        <Route path="/" element={<Loading audio={audio} />} />
-        <Route
-          path="/index"
-          element={<Index audio={audio} setIsHide={setIsHide} />}
-        />
+        <Route path="/" element={<Loading setIsHide={setIsHide} />} />
+        <Route path="/index" element={<Index audio={audio} />} />
         <Route path="/record" element={<Record />} />
         <Route
           path="/generate"
